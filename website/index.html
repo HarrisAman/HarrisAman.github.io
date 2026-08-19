@@ -1,0 +1,995 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Harris Aman — Software Developer</title>
+<meta name="description" content="Portfolio of Harris Aman, a software developer building projects in Python, Flask, SQLAlchemy and Selenium.">
+<meta name="author" content="Harris Aman">
+
+<!-- Link preview cards (LinkedIn, Slack, messaging apps) -->
+<meta property="og:title" content="Harris Aman — Software Developer">
+<meta property="og:description" content="Projects in Python, Flask, SQLAlchemy and Selenium — with the source code readable in the page.">
+<meta property="og:type" content="website">
+<meta name="twitter:card" content="summary">
+
+<!-- Inline SVG favicon: an amber terminal prompt on the dark background -->
+<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><rect width='100' height='100' rx='18' fill='%2314121c'/><text x='50' y='68' font-family='monospace' font-size='58' font-weight='bold' fill='%23f5a623' text-anchor='middle'>&gt;</text></svg>">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;600;700&family=IBM+Plex+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  /* ================= TOKENS ================= */
+  :root{
+    --bg:#14121c;
+    --bg-panel:#1c1926;
+    --bg-panel-alt:#221f2f;
+    --bg-raised:#282438;
+    --border:#332f42;
+    --border-soft:#262233;
+    --text:#ece7f5;
+    --text-muted:#9d97b3;
+    --text-dim:#635e79;
+    --amber:#f5a623;
+    --amber-glow:#f5a62366;
+    --teal:#4fd1c5;
+    --teal-glow:#4fd1c566;
+    --rose:#f2637a;
+    --rose-glow:#f2637a66;
+    --mono: 'IBM Plex Mono', ui-monospace, SFMono-Regular, Menlo, monospace;
+    --sans: 'IBM Plex Sans', system-ui, -apple-system, sans-serif;
+    --maxw: 1080px;
+    --radius: 10px;
+  }
+
+  *{ box-sizing:border-box; }
+  html{ scroll-behavior:smooth; }
+  body{
+    margin:0;
+    background:var(--bg);
+    color:var(--text);
+    font-family:var(--sans);
+    line-height:1.6;
+    -webkit-font-smoothing:antialiased;
+  }
+  img,svg{ max-width:100%; display:block; }
+  a{ color:inherit; text-decoration:none; }
+  ::selection{ background:var(--amber); color:#14121c; }
+  :focus-visible{ outline:2px solid var(--teal); outline-offset:3px; border-radius:4px; }
+
+  h1,h2,h3,h4{ font-family:var(--mono); font-weight:600; margin:0; letter-spacing:-0.01em; }
+  p{ margin:0; }
+
+  .wrap{ max-width:var(--maxw); margin:0 auto; padding:0 24px; }
+  section{ scroll-margin-top:84px; }
+
+  .eyebrow{
+    font-family:var(--mono);
+    font-size:12.5px;
+    letter-spacing:0.14em;
+    text-transform:uppercase;
+    color:var(--text-dim);
+    display:flex; align-items:center; gap:10px;
+    margin-bottom:14px;
+  }
+  .eyebrow::before{ content:'//'; color:var(--border); }
+
+  .section-head{ margin-bottom:40px; }
+  .section-title{ font-size:clamp(24px,3vw,32px); color:var(--text); }
+  .section-sub{ color:var(--text-muted); font-size:15.5px; margin-top:10px; max-width:560px; }
+
+  .btn{
+    font-family:var(--mono);
+    font-size:14px;
+    font-weight:500;
+    padding:11px 20px;
+    border-radius:8px;
+    border:1px solid var(--border);
+    background:var(--bg-panel);
+    color:var(--text);
+    cursor:pointer;
+    display:inline-flex; align-items:center; gap:8px;
+    transition:border-color .15s ease, transform .15s ease, background .15s ease;
+  }
+  .btn:hover{ border-color:var(--text-dim); transform:translateY(-1px); }
+  .btn-primary{ background:var(--amber); color:#1a1305; border-color:var(--amber); }
+  .btn-primary:hover{ background:#ffb84d; border-color:#ffb84d; }
+  .btn-ghost{ background:transparent; }
+
+  .tag{
+    font-family:var(--mono);
+    font-size:11.5px;
+    letter-spacing:.03em;
+    color:var(--teal);
+    background:#4fd1c514;
+    border:1px solid #4fd1c540;
+    padding:4px 10px;
+    border-radius:100px;
+    white-space:nowrap;
+  }
+
+  /* reveal on scroll */
+  .reveal{ opacity:0; transform:translateY(16px); transition:opacity .6s ease, transform .6s ease; }
+  .reveal.is-visible{ opacity:1; transform:translateY(0); }
+  @media (prefers-reduced-motion: reduce){
+    .reveal{ opacity:1; transform:none; transition:none; }
+    html{ scroll-behavior:auto; }
+  }
+
+  /* ================= NAV ================= */
+  .topnav{
+    position:fixed; top:0; left:0; right:0; z-index:100;
+    background:rgba(20,18,28,.85);
+    backdrop-filter:blur(10px);
+    border-bottom:1px solid var(--border-soft);
+  }
+  .topnav-inner{
+    max-width:var(--maxw); margin:0 auto; padding:0 24px;
+    display:flex; align-items:center; justify-content:space-between;
+    height:60px;
+  }
+  .brand{ font-family:var(--mono); font-weight:600; font-size:15px; display:flex; align-items:center; gap:8px; }
+  .brand .cursor{ color:var(--amber); }
+  .navtabs{ display:flex; gap:4px; overflow-x:auto; scrollbar-width:none; }
+  .navtabs::-webkit-scrollbar{ display:none; }
+  .navtabs a{
+    font-family:var(--mono); font-size:13px; color:var(--text-muted);
+    padding:8px 12px; border-radius:6px; white-space:nowrap;
+    transition:color .15s, background .15s;
+  }
+  .navtabs a:hover{ color:var(--text); background:var(--bg-panel); }
+
+  /* ================= HERO / TERMINAL ================= */
+  .hero{
+    padding:150px 0 90px;
+    position:relative;
+    overflow:hidden;
+  }
+  .hero::before{
+    content:'';
+    position:absolute; inset:0;
+    background:repeating-linear-gradient(
+      to bottom, transparent 0 3px, #ffffff05 3px 4px
+    );
+    pointer-events:none;
+    mix-blend-mode:overlay;
+  }
+  .terminal{
+    background:var(--bg-panel);
+    border:1px solid var(--border);
+    border-radius:12px;
+    box-shadow:0 30px 60px -30px #000000aa;
+    max-width:640px;
+    overflow:hidden;
+  }
+  .terminal-bar{
+    display:flex; align-items:center; gap:8px;
+    padding:11px 14px;
+    background:var(--bg-panel-alt);
+    border-bottom:1px solid var(--border);
+  }
+  .terminal-dot{ width:10px; height:10px; border-radius:50%; }
+  .terminal-bar-label{
+    font-family:var(--mono); font-size:12px; color:var(--text-dim);
+    margin-left:6px;
+  }
+  .terminal-body{
+    font-family:var(--mono); font-size:14px;
+    padding:20px 22px 24px;
+    min-height:150px;
+    color:var(--text-muted);
+  }
+  .terminal-body .ln{ margin-bottom:8px; white-space:pre-wrap; }
+  .terminal-body .prompt{ color:var(--teal); }
+  .terminal-body .out{ color:var(--text); }
+  .terminal-cursor{
+    display:inline-block; width:8px; height:16px; background:var(--amber);
+    vertical-align:-3px; animation:blink 1s step-end infinite;
+  }
+  @keyframes blink{ 50%{ opacity:0; } }
+  @media (prefers-reduced-motion: reduce){ .terminal-cursor{ animation:none; } }
+
+  .hero-identity{ margin-top:40px; }
+  .hero-name{ font-size:clamp(34px,6vw,56px); line-height:1.05; color:var(--text); }
+  .hero-role{ font-family:var(--mono); color:var(--amber); font-size:clamp(15px,2vw,18px); margin-top:10px; }
+  .hero-tagline{ color:var(--text-muted); margin-top:16px; max-width:520px; font-size:16px; }
+  .hero-actions{ display:flex; gap:12px; margin-top:30px; flex-wrap:wrap; }
+
+  /* ================= ABOUT / README ================= */
+  .readme{
+    background:var(--bg-panel);
+    border:1px solid var(--border);
+    border-radius:var(--radius);
+    padding:36px 40px;
+  }
+  .readme-tag{ color:var(--text-dim); font-family:var(--mono); }
+  .readme h3{ font-size:22px; color:var(--text); margin:0 0 18px; }
+  .readme h3 .hash{ color:var(--text-dim); margin-right:10px; }
+  .readme p{ color:var(--text-muted); margin-bottom:16px; font-size:15.5px; }
+  .readme p:last-of-type{ margin-bottom:0; }
+  .readme strong{ color:var(--text); }
+  .readme-meta{ display:flex; gap:28px; margin-top:26px; padding-top:22px; border-top:1px dashed var(--border); flex-wrap:wrap; }
+  .readme-meta div{ font-family:var(--mono); font-size:13px; }
+  .readme-meta span{ display:block; color:var(--text-dim); font-size:11px; letter-spacing:.08em; text-transform:uppercase; margin-bottom:4px; }
+  .status-dot{ display:inline-block; width:7px; height:7px; border-radius:50%; background:var(--teal); box-shadow:0 0 8px var(--teal); margin-right:7px; }
+
+  /* ================= SKILLS ================= */
+  .skills-grid{ display:grid; grid-template-columns:repeat(auto-fit,minmax(220px,1fr)); gap:18px; }
+  .skill-group{ background:var(--bg-panel); border:1px solid var(--border); border-radius:var(--radius); padding:20px 22px; }
+  .skill-group h4{ font-size:13px; color:var(--text-dim); text-transform:uppercase; letter-spacing:.08em; margin-bottom:14px; }
+  .skill-chips{ display:flex; flex-wrap:wrap; gap:8px; }
+  .chip{ font-family:var(--mono); font-size:12.5px; color:var(--text); background:var(--bg-panel-alt); border:1px solid var(--border); padding:5px 11px; border-radius:6px; }
+
+  /* ================= PROJECTS ================= */
+  .filters{ display:flex; gap:8px; flex-wrap:wrap; margin-bottom:32px; }
+  .filter-chip{
+    font-family:var(--mono); font-size:13px; padding:7px 15px; border-radius:100px;
+    border:1px solid var(--border); background:var(--bg-panel); color:var(--text-muted);
+    cursor:pointer; transition:all .15s ease;
+  }
+  .filter-chip:hover{ border-color:var(--text-dim); color:var(--text); }
+  .filter-chip.active{ background:var(--amber); border-color:var(--amber); color:#1a1305; }
+
+  .project-grid{ display:grid; grid-template-columns:repeat(auto-fill,minmax(300px,1fr)); gap:20px; }
+  .project-card{
+    background:var(--bg-panel); border:1px solid var(--border); border-radius:var(--radius);
+    padding:24px 24px 22px; display:flex; flex-direction:column; gap:14px;
+    transition:transform .18s ease, border-color .18s ease;
+  }
+  .project-card:hover{ transform:translateY(-3px); border-color:var(--text-dim); }
+  .project-card.is-hidden{ display:none; }
+  .project-card-top{ display:flex; align-items:flex-start; justify-content:space-between; gap:10px; }
+  .project-title{ font-size:17px; color:var(--text); }
+  .project-status{ font-family:var(--mono); font-size:10.5px; color:var(--teal); background:#4fd1c514; border:1px solid #4fd1c540; padding:3px 8px; border-radius:100px; white-space:nowrap; text-transform:uppercase; letter-spacing:.05em; }
+  .project-tagline{ color:var(--text-muted); font-size:14.5px; flex-grow:1; }
+  .project-tags{ display:flex; flex-wrap:wrap; gap:6px; }
+  .project-actions{ display:flex; gap:8px; margin-top:6px; flex-wrap:wrap; }
+  .project-actions .btn{ padding:8px 14px; font-size:13px; }
+
+  /* modal */
+  .modal-backdrop{
+    position:fixed; inset:0; background:#0a0910cc; backdrop-filter:blur(3px);
+    display:flex; align-items:center; justify-content:center; padding:24px; z-index:200;
+    opacity:0; pointer-events:none; transition:opacity .18s ease;
+  }
+  .modal-backdrop.open{ opacity:1; pointer-events:auto; }
+  .modal{
+    background:var(--bg-panel); border:1px solid var(--border); border-radius:14px;
+    max-width:640px; width:100%; max-height:85vh; overflow-y:auto;
+    padding:0; transform:translateY(12px); transition:transform .18s ease;
+  }
+  .modal-backdrop.open .modal{ transform:translateY(0); }
+  .modal-head{ padding:24px 28px 18px; border-bottom:1px solid var(--border); display:flex; justify-content:space-between; align-items:flex-start; gap:16px; position:sticky; top:0; background:var(--bg-panel); }
+  .modal-head h3{ font-size:19px; color:var(--text); margin-bottom:6px; }
+  .modal-head p{ color:var(--text-muted); font-size:14px; }
+  .modal-close{ background:none; border:none; color:var(--text-dim); font-size:22px; cursor:pointer; line-height:1; padding:4px; }
+  .modal-close:hover{ color:var(--text); }
+  .modal-body{ padding:22px 28px 30px; }
+  .modal-section{ margin-bottom:22px; }
+  .modal-section:last-child{ margin-bottom:0; }
+  .modal-section h4{ font-family:var(--mono); font-size:11.5px; text-transform:uppercase; letter-spacing:.08em; color:var(--text-dim); margin-bottom:10px; }
+  .modal-section p, .modal-section li{ color:var(--text-muted); font-size:14.5px; }
+  .modal-section ul{ margin:0; padding-left:18px; }
+  .modal-section li{ margin-bottom:5px; }
+
+  /* demo: live in-browser widget */
+  .demo-badge{ font-family:var(--mono); font-size:10.5px; text-transform:uppercase; letter-spacing:.05em; padding:3px 8px; border-radius:100px; margin-left:8px; }
+  .demo-badge.local{ color:var(--amber); background:#f5a6231a; border:1px solid #f5a62350; }
+  .demo-hint{ font-size:12.5px; color:var(--text-dim); margin-top:10px; }
+
+  /* demo: run-it-locally block */
+  .demo-steps{ display:flex; flex-direction:column; gap:14px; }
+  .demo-step{ display:flex; gap:12px; align-items:flex-start; }
+  .demo-step > div{ flex:1; min-width:0; }
+  .demo-step-num{
+    width:22px; height:22px; flex-shrink:0; border-radius:50%;
+    background:var(--bg-raised); color:var(--amber);
+    font-family:var(--mono); font-size:12px; font-weight:600;
+    display:flex; align-items:center; justify-content:center; margin-top:2px;
+  }
+  .demo-step-label{ font-size:13.5px; color:var(--text-muted); margin-bottom:8px; }
+  .demo-dl{ padding:9px 16px; font-size:13px; }
+  .demo-dl-note{ font-family:var(--mono); font-size:13px; color:var(--text-dim); }
+  .demo-code{
+    font-family:var(--mono); font-size:13px; color:var(--text);
+    background:#0f0d16; border:1px solid var(--border); border-radius:8px;
+    padding:14px 16px; white-space:pre-wrap; word-break:break-word;
+    position:relative;
+  }
+  .demo-copy{
+    position:absolute; top:10px; right:10px; font-family:var(--mono); font-size:11px;
+    color:var(--text-dim); background:var(--bg-panel-alt); border:1px solid var(--border);
+    border-radius:6px; padding:4px 9px; cursor:pointer;
+  }
+  .demo-copy:hover{ color:var(--text); }
+  /* ================= MORE PROJECTS ================= */
+  .code-head{ display:flex; align-items:center; gap:12px; margin-bottom:8px; flex-wrap:wrap; }
+  .code-filename{ font-family:var(--mono); font-size:12.5px; color:var(--amber); }
+  .code-lines{ font-family:var(--mono); font-size:11.5px; color:var(--text-dim); }
+  .code-copy{ position:static; margin-left:auto; }
+  .code-block{
+    margin:0; padding:16px 18px; max-height:420px; overflow:auto;
+    background:#0f0d16; border:1px solid var(--border); border-radius:8px;
+    font-family:var(--mono); font-size:12.5px; line-height:1.6; color:var(--text);
+    tab-size:4;
+  }
+  .code-block code{ font-family:inherit; white-space:pre; }
+  .code-block::-webkit-scrollbar{ width:10px; height:10px; }
+  .code-block::-webkit-scrollbar-track{ background:transparent; }
+  .code-block::-webkit-scrollbar-thumb{ background:var(--border); border-radius:5px; }
+  .code-block::-webkit-scrollbar-thumb:hover{ background:var(--text-dim); }
+
+  .more-list{ display:flex; flex-direction:column; gap:1px; border:1px solid var(--border); border-radius:var(--radius); overflow:hidden; }
+  .more-item{
+    display:flex; align-items:center; justify-content:space-between; gap:16px;
+    padding:16px 20px; background:var(--bg-panel); flex-wrap:wrap;
+  }
+  .more-item + .more-item{ border-top:1px solid var(--border-soft); }
+  .more-item-main{ flex:1; min-width:220px; }
+  .more-item-title{ font-family:var(--mono); font-size:14.5px; color:var(--text); }
+  .more-item-tagline{ font-size:13.5px; color:var(--text-muted); margin-top:4px; }
+  .more-item-right{ display:flex; align-items:center; gap:10px; flex-wrap:wrap; }
+  .more-note{ font-size:13px; color:var(--text-dim); margin-top:16px; font-family:var(--mono); }
+
+  /* ================= CONTACT ================= */
+  .contact-terminal{ max-width:640px; }
+  .contact-line{ display:flex; align-items:center; gap:12px; padding:14px 0; border-bottom:1px solid var(--border-soft); }
+  .contact-line:last-child{ border-bottom:none; }
+  .contact-line .prompt{ font-family:var(--mono); color:var(--teal); font-size:14px; flex-shrink:0; }
+  .contact-line a, .contact-line button.linklike{
+    font-family:var(--mono); font-size:14px; color:var(--text); background:none; border:none; cursor:pointer; padding:0;
+    border-bottom:1px dashed var(--text-dim);
+  }
+  .contact-line a:hover, .contact-line button.linklike:hover{ color:var(--amber); border-color:var(--amber); }
+  .copy-feedback{ font-family:var(--mono); font-size:12px; color:var(--teal); opacity:0; transition:opacity .2s ease; }
+  .copy-feedback.show{ opacity:1; }
+
+  /* ================= FOOTER ================= */
+  .site-footer{ padding:50px 0 40px; border-top:1px solid var(--border-soft); margin-top:40px; }
+  .footer-inner{ display:flex; justify-content:space-between; align-items:center; gap:16px; flex-wrap:wrap; }
+  .footer-inner p{ font-family:var(--mono); font-size:12.5px; color:var(--text-dim); }
+
+  section{ padding:90px 0; }
+  @media (max-width:640px){
+    section{ padding:60px 0; }
+    .hero{ padding:130px 0 60px; }
+    .readme{ padding:26px 22px; }
+    .navtabs{ display:none; }
+  }
+</style>
+</head>
+<body>
+
+<nav class="topnav">
+  <div class="topnav-inner">
+    <div class="brand"><span class="cursor">&gt;_</span> <span id="nav-name">portfolio</span></div>
+    <div class="navtabs">
+      <a href="#about">about.md</a>
+      <a href="#projects">projects/</a>
+      <a href="#more">more/</a>
+      <a href="#contact">contact.sh</a>
+    </div>
+  </div>
+</nav>
+
+<main>
+
+  <!-- ================= HERO ================= -->
+  <section class="hero" id="hero">
+    <div class="wrap">
+      <div class="terminal">
+        <div class="terminal-bar">
+          <span class="terminal-dot" style="background:var(--rose)"></span>
+          <span class="terminal-dot" style="background:var(--amber)"></span>
+          <span class="terminal-dot" style="background:var(--teal)"></span>
+          <span class="terminal-bar-label">bash — boot.sh</span>
+        </div>
+        <div class="terminal-body" id="terminal-body"></div>
+      </div>
+      <div class="hero-identity">
+        <h1 class="hero-name" id="hero-name">Your Name</h1>
+        <div class="hero-role" id="hero-role">Aspiring Software Developer</div>
+        <p class="hero-tagline" id="hero-tagline">Replace with your tagline — what you're building toward and why.</p>
+        <div class="hero-actions">
+          <a href="#projects" class="btn btn-primary">View projects</a>
+          <a href="#contact" class="btn btn-ghost">Get in touch</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ================= ABOUT ================= -->
+  <section id="about">
+    <div class="wrap">
+      <div class="section-head reveal">
+        <div class="eyebrow">01 · about</div>
+        <h2 class="section-title">The short version</h2>
+      </div>
+      <div class="readme reveal">
+        <h3><span class="hash">#</span>about.md</h3>
+        <p id="about-p1">I'm a developer early in my career, and I've spent the past several months doing the thing that actually teaches you to code: building.</p>
+        <p id="about-p2">What I care about more than the project list is how I work. Every one of these ran locally before it went on this page.</p>
+        <div class="readme-meta">
+          <div><span>Status</span><span class="status-dot"></span><span id="about-status">Open to opportunities</span></div>
+          <div><span>Based in</span><span id="about-location">City, Country</span></div>
+          <div><span>Focus</span><span id="about-focus">Web development</span></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ================= SKILLS ================= -->
+  <section id="skills">
+    <div class="wrap">
+      <div class="section-head reveal">
+        <div class="eyebrow">02 · stack</div>
+        <h2 class="section-title">Tools I reach for</h2>
+      </div>
+      <div class="skills-grid reveal" id="skills-grid"></div>
+    </div>
+  </section>
+
+  <!-- ================= PROJECTS ================= -->
+  <section id="projects">
+    <div class="wrap">
+      <div class="section-head reveal">
+        <div class="eyebrow">03 · projects</div>
+        <h2 class="section-title">Things I've built</h2>
+        <p class="section-sub">Course exercises and personal projects. Click any card for the full breakdown.</p>
+      </div>
+      <div class="filters reveal" id="filters"></div>
+      <div class="project-grid reveal" id="project-grid"></div>
+    </div>
+  </section>
+
+  <!-- ================= MORE PROJECTS ================= -->
+  <section id="more">
+    <div class="wrap">
+      <div class="section-head reveal">
+        <div class="eyebrow">04 · more</div>
+        <h2 class="section-title">More, if you're curious</h2>
+        <p class="section-sub">Smaller exercises and side builds. Each one includes the full source code, readable right here.</p>
+      </div>
+      <div class="more-list reveal" id="more-list"></div>
+      <p class="more-note">// this list grows over time — new entries just get appended to MORE_PROJECTS</p>
+    </div>
+  </section>
+
+  <!-- ================= CONTACT ================= -->
+  <section id="contact">
+    <div class="wrap">
+      <div class="section-head reveal">
+        <div class="eyebrow">05 · contact.sh</div>
+        <h2 class="section-title">Let's talk</h2>
+      </div>
+      <div class="contact-terminal reveal" id="contact-lines"></div>
+    </div>
+  </section>
+
+</main>
+
+<footer class="site-footer">
+  <div class="wrap footer-inner">
+    <p id="footer-note">Built by hand, shipped with a little help from Claude.</p>
+    <p>&copy; <span id="footer-year"></span></p>
+  </div>
+</footer>
+
+<div id="modal-root"></div>
+
+<script>
+/* =====================================================================
+   EDIT ME — all real content lives in this config block.
+   Replace the placeholder strings below with your actual info.
+   Everything on the page is rendered from this data.
+===================================================================== */
+
+const PROFILE = {
+  name: "Harris Aman",
+  role: "Software Developer",
+  tagline: "Learning in public, one commit at a time — building real things while I learn.",
+  status: "Open to opportunities",
+  location: "Mississauga, Ontario",
+  focus: "Full-stack & Python development",
+  email: "harrisaman345@gmail.com",
+  github: "https://github.com/HarrisAman",
+  linkedin: "https://www.linkedin.com/feed/"
+};
+
+const ABOUT = {
+  p1: "I'm a developer early in my career, and I've spent the past several months doing the thing that actually teaches you to code: building. Not just following along with course videos, but taking what a lesson introduced and pushing it somewhere it wasn't meant to go — turning a scraping exercise into a CSV pipeline, wiring a Flask app up to a live third-party API, writing a bot that drives a real browser and makes its own decisions about what to buy. The projects here span Python, Flask, SQLAlchemy, and Selenium, because I've been deliberately chasing breadth before depth.",
+  p2: "What I care about more than the project list is how I work. I've learned that code you've only read is code you don't understand yet — every one of these ran locally before it went on this page, and running them is exactly how I found the bugs I'd otherwise have demoed by accident. I'd rather find the 500 myself, understand why GET was hiding it, and fix the root cause than ship something that looks finished. I'm looking for a team where I can keep learning at that pace, with people who'll tell me when I'm wrong."
+};
+
+/* Derived from what's actually imported/used across the project files —
+   nothing listed here that isn't in the code. */
+const SKILLS = {
+  "Languages": ["Python", "HTML", "CSS"],
+  "Web & Backend": ["Flask", "SQLAlchemy", "SQLite", "REST APIs", "Flask-WTF", "Jinja templates"],
+  "Automation & Scraping": ["Selenium", "BeautifulSoup", "Requests", "csv"],
+  "GUI": ["Tkinter", "Turtle", "PyAutoGUI"],
+  "Tools": ["Git & GitHub", "VS Code", "Bootstrap 5"]
+};
+
+// type: "course" | "project" | "milestone"
+
+const PROJECTS = [
+  {
+    title: "Book Scraper",
+    status: "Live",
+    tagline: "Scrapes book listings from a practice site and exports title, price, and stock status to CSV.",
+    tags: ["Python", "Web Scraping", "BeautifulSoup"],
+    overview: "A short script that fetches books.toscrape.com with requests, parses the HTML with BeautifulSoup, and writes each book's title, price, and availability out to a clean CSV file for further use.",
+    stack: ["Python", "Requests", "BeautifulSoup", "CSV"],
+    highlights: [
+      "Parsed HTML product cards with BeautifulSoup to pull structured fields out of raw markup",
+      "Exported the scraped data straight to books.csv using Python's built-in csv module",
+      "Hardened it after finding it reported success on a failed request — now it exits non-zero and won't overwrite a good CSV with an empty one"
+    ],
+    github: "#",
+    demoUrl: "#",
+    tryIt: {
+      type: "local",
+      commands: "cd scraper\npip install requests beautifulsoup4\npython books_scrape.py",
+      note: "Runs against the live practice site and writes books.csv in a few seconds — good one to run live and open the CSV right after."
+    },
+    filename: "books_scrape.py",
+    code: "import csv\nimport sys\nimport requests\nfrom bs4 import BeautifulSoup\n\nURL = \"https://books.toscrape.com/\"\nOUTPUT = \"books.csv\"\n\n# this makes the website send the HTML of it\ntry:\n    response = requests.get(URL, timeout=10)\nexcept requests.RequestException as err:\n    # network down, DNS failure, timeout, etc.\n    print(f\"Could not reach {URL}: {err}\", file=sys.stderr)\n    sys.exit(1)\n\nprint(\"Status code:\", response.status_code)\n\n# Bail out on 4xx/5xx instead of trying to parse an error page.\n# Without this, a 403 or 500 silently produces an empty CSV.\nif not response.ok:\n    print(f\"Request failed with HTTP {response.status_code} - nothing scraped.\", file=sys.stderr)\n    sys.exit(1)\n\n# The site declares its charset in the headers, but requests sometimes guesses\n# latin-1 and turns \"\u00a3\" into \"\u00c2\u00a3\". Trusting the apparent encoding fixes that.\nresponse.encoding = response.apparent_encoding\n\n# converts to searchable object\nsoup = BeautifulSoup(response.text, \"html.parser\")\n\nbooks = soup.find_all(\"article\", class_=\"product_pod\")\nprint(\"Books found:\", len(books))\n\n# If the page loaded but no books parsed, the site's HTML structure probably\n# changed. Fail loudly rather than overwriting a good CSV with an empty one.\nif not books:\n    print(\"Page loaded but no book entries were found - the site layout may have changed.\", file=sys.stderr)\n    sys.exit(1)\n\nrows = []\nskipped = 0\n\n# loops to each book, pulls the fields, collects them before writing\nfor book in books:\n    try:\n        title = book.h3.a[\"title\"]\n        price = book.find(\"p\", class_=\"price_color\").get_text(strip=True)\n        # availability text (e.g. \"In stock\")\n        availability = book.find(\"p\", class_=\"instock availability\").get_text(strip=True)\n    except (AttributeError, KeyError, TypeError):\n        # one malformed card shouldn't kill the whole run\n        skipped += 1\n        continue\n    rows.append([title, price, availability])\n\nif skipped:\n    print(f\"Skipped {skipped} entries that were missing expected fields.\")\n\n# Only open the file once we actually have data, so a failed run can't\n# clobber a previously good books.csv.\nwith open(OUTPUT, \"w\", newline=\"\", encoding=\"utf-8\") as f:\n    writer = csv.writer(f)\n    writer.writerow([\"Title\", \"Price\", \"Availability\"])\n    writer.writerows(rows)\n\nprint(f\"Saved {OUTPUT} ({len(rows)} books)\")\n"
+  },
+  {
+    title: "Cookie Clicker Bot",
+    status: "Live",
+    tagline: "A Selenium bot that plays Cookie Clicker on its own — clicking, reading the store, and buying the best upgrade it can afford.",
+    tags: ["Python", "Selenium", "Automation", "Browser"],
+    overview: "Drives a real Chrome session with Selenium: dismisses the game's language prompt, then clicks the cookie continuously while checking the shop every five seconds to buy the most expensive upgrade currently affordable. Runs on a five-minute timer and reports the final cookie count.",
+    stack: ["Python", "Selenium WebDriver", "ChromeDriver"],
+    highlights: [
+      "Located elements by ID and by CSS attribute-prefix selector (div[id^='product']) to grab the whole shop list at once",
+      "Read each item's class list to detect the 'enabled' state, then walked the list in reverse to find the priciest affordable upgrade",
+      "Ran two independent timers off a single loop — one for the five-second purchase check, one for the five-minute run limit",
+      "Wrapped element lookups in NoSuchElementException handling so a missing prompt or a mid-game DOM change doesn't crash the run"
+    ],
+    github: "#",
+    demoUrl: "#",
+    tryIt: {
+      type: "local",
+      commands: "cd cookie-clicker-bot\npip install selenium\npython main.py",
+      note: "Opens a real Chrome window and plays for five minutes, so it needs Chrome plus a matching ChromeDriver on PATH. Very watchable as a live demo — the numbers climb on screen. Start it early in the interview and let it run in the background."
+    },
+    filename: "main.py",
+    code: "# import selenium (webdriver - allows python to open browsers, click buttons etc.)\n\nfrom selenium import webdriver\nfrom selenium.webdriver.common.by import By # by allows selenium to locate certain elements on the webpage\nfrom selenium.common.exceptions import NoSuchElementException #cant find element\nfrom time import sleep, time\n\n# setup chrome\nchrome_options = webdriver.ChromeOptions()\nchrome_options.add_experimental_option(\"detach\", True)\ndriver = webdriver.Chrome(options=chrome_options)\n\n# loads webpage\ndriver.get(\"https://ozh.github.io/cookieclicker/\")\n\n# waits 3 secs for page to load\nsleep(3)\n\n# handle initial popups (cookies consent does not have to be clicked, but language does)\nprint(\"Looking for language selection...\")\ntry:\n    # select English language\n    language_button = driver.find_element(by=By.ID, value=\"langSelect-EN\")\n    print(\"Found language button, clicking...\")\n    language_button.click()\n    sleep(3) # more loading\nexcept NoSuchElementException:\n    print(\"Language selection not found\")\n\n# wait again\nsleep(2)\n\n# find the big cookie to click\ncookie = driver.find_element(by=By.ID, value=\"bigCookie\")\n\n# get all the store items in the game 0-19\nitem_ids = [f\"product{i}\" for i in range(18)]\n\n# sets timers\nwait_time = 5\ntimeout = time() + wait_time  # checks for purchases every 5 seconds\nfive_min = time() + 60 * 5  # run for 5 minutes\n\nwhile True:\n    cookie.click()\n\n    # every 5 seconds, try to buy the most expensive item we can afford\n    if time() > timeout:\n        try:\n            # get current cookie count\n            cookies_element = driver.find_element(by=By.ID, value=\"cookies\")\n            cookie_text = cookies_element.text\n            # extract number from text like \"123 cookies\"\n            cookie_count = int(cookie_text.split()[0].replace(\",\", \"\"))\n\n            # find all available products in the store\n            products = driver.find_elements(by=By.CSS_SELECTOR, value=\"div[id^='product']\")\n\n            # find the most expensive item we can afford\n            best_item = None\n            for product in reversed(products):  # start from most expensive (bottom of list)\n                # check if item is available and affordable (enabled class)\n                if \"enabled\" in product.get_attribute(\"class\"):\n                    best_item = product\n                    break\n\n            # buy the best item if found\n            if best_item:\n                best_item.click()\n                print(f\"Bought item: {best_item.get_attribute('id')}\")\n\n        except (NoSuchElementException, ValueError):\n            print(\"Couldn't find cookie count or items\")\n\n        # reset timer\n        timeout = time() + wait_time\n\n    # stop after 5 minutes\n    if time() > five_min:\n        try:\n            cookies_element = driver.find_element(by=By.ID, value=\"cookies\")\n            print(f\"Final result: {cookies_element.text}\")\n        except NoSuchElementException:\n            print(\"Couldn't get final cookie count\")\n        break\n"
+  },
+  {
+    title: "Movie Rating App",
+    status: "Live",
+    tagline: "A Flask web app for building a ranked film list — search TMDB, save a movie, then rate and review it.",
+    tags: ["Python", "Flask", "SQLAlchemy", "REST API", "SQLite"],
+    overview: "Full CRUD web app backed by SQLAlchemy and SQLite. Searching a title queries the TMDB API, picking a result pulls the full details and poster and saves it locally, and a separate form captures a rating and review. The home page re-ranks the whole list by rating every time it loads.",
+    stack: ["Flask", "SQLAlchemy", "SQLite", "Flask-WTF", "Bootstrap 5", "TMDB API", "Jinja"],
+    highlights: [
+      "Used the modern SQLAlchemy 2.0 declarative style (DeclarativeBase, Mapped, mapped_column) rather than the older Column syntax",
+      "Consumed two separate TMDB endpoints — search for candidates, then a details lookup to fill in the year, overview, and poster",
+      "Built server-side validated forms with Flask-WTF and WTForms validators instead of hand-parsing request data",
+      "Recomputed each film's ranking from its rating order on page load, so the list stays correctly ordered after any edit"
+    ],
+    github: "#",
+    demoUrl: "#",
+    tryIt: {
+      type: "local",
+      commands: "cd movie-rating-app\npip install -r requirements.txt\npython main.py",
+      note: "Runs at http://localhost:5000 and needs a TMDB API key. Good one to have already running with a few films saved, so the ranked list is populated when you show it."
+    }
+  }
+];
+
+/* EDIT ME — add more projects here any time, in whatever order. Each one just
+   needs: title, tagline, tags, and a github link. Nothing else on the page
+   needs to change when you add to this list. */
+const MORE_PROJECTS = [
+  {
+    title: "Tic-Tac-Toe",
+    tagline: "A command-line two-player game with full win, tie, and input-validation logic.",
+    tags: ["Python", "CLI", "Game logic"],
+    overview: "A complete two-player terminal game. It maps the numbers 1-9 onto a 3x3 grid, validates every move before accepting it, checks all eight win conditions after each turn, detects a full board as a tie, and offers a replay loop when the game ends.",
+    stack: ["Python", "Nested lists"],
+    highlights: [
+      "Checked all eight win conditions — three rows, three columns, both diagonals — using all() with generator expressions rather than writing them out by hand",
+      "Converted a single 1-9 input into grid coordinates with divmod-style arithmetic: row = (n-1) // 3, col = (n-1) % 3",
+      "Caught both out-of-range numbers and non-numeric input, re-prompting instead of crashing",
+      "Split the logic into focused functions (print_board, check_winner, is_board_full, get_move) so the main loop reads cleanly"
+    ],
+    filename: "tic-tac-toe.py",
+    run: "python tic-tac-toe.py",
+    code: "def print_board(board):\n     # displays board\n    print(\"\\n\")\n    for i in range(3):\n        print(f\" {board[i][0]} | {board[i][1]} | {board[i][2]} \")\n        if i < 2:\n            print(\"-----------\")\n    print(\"\\n\")\n\ndef check_winner(board, player):\n    \"\"\"Check if the current player has won\"\"\"\n    # checks rows\n    for row in board:\n        if all(cell == player for cell in row):\n            return True\n    \n    # Check columns\n    for col in range(3):\n        if all(board[row][col] == player for row in range(3)):\n            return True\n    \n    # Check diagonals\n    if all(board[i][i] == player for i in range(3)):\n        return True\n    if all(board[i][2-i] == player for i in range(3)):\n        return True\n    \n    return False\n\ndef is_board_full(board):\n    \"\"\"Check if board is full (tie game)\"\"\"\n    return all(cell != \" \" for row in board for cell in row)\n\ndef get_move(board, player):\n    \"\"\"Get valid move from player\"\"\"\n    while True:\n        try:\n            position = int(input(f\"Player {player}, enter position (1-9): \"))\n            if position < 1 or position > 9:\n                print(\"Please enter a number between 1 and 9!\")\n                continue\n            \n            row = (position - 1) // 3\n            col = (position - 1) % 3\n            \n            if board[row][col] != \" \":\n                print(\"That position is already taken!\")\n                continue\n            \n            return row, col\n        except ValueError:\n            print(\"Invalid input! Enter a number between 1 and 9.\")\n\ndef play_game():\n    \"\"\"Main game loop\"\"\"\n    print(\"=\" * 50)\n    print(\"WELCOME TO TIC TAC TOE\")\n    print(\"=\" * 50)\n    print(\"\\nPositions are numbered 1-9:\")\n    print(\" 1 | 2 | 3 \")\n    print(\"-----------\")\n    print(\" 4 | 5 | 6 \")\n    print(\"-----------\")\n    print(\" 7 | 8 | 9 \")\n    \n    board = [[\" \" for _ in range(3)] for _ in range(3)]\n    current_player = \"X\"\n    \n    while True:\n        print_board(board)\n        \n        # Get player move\n        row, col = get_move(board, current_player)\n        board[row][col] = current_player\n        \n        # Check for winner\n        if check_winner(board, current_player):\n            print_board(board)\n            print(f\"\ud83c\udf89 Player {current_player} WINS! \ud83c\udf89\")\n            break\n        \n        # Check for tie\n        if is_board_full(board):\n            print_board(board)\n            print(\"It's a TIE! Good game!\")\n            break\n        \n        # Switch player\n        current_player = \"O\" if current_player == \"X\" else \"X\"\n\ndef main():\n    \"\"\"Main program loop\"\"\"\n    while True:\n        play_game()\n        \n        play_again = input(\"\\nWould you like to play again? (yes/no): \").lower()\n        if play_again not in [\"yes\", \"y\"]:\n            print(\"Thanks for playing! Goodbye!\")\n            break\n\nif __name__ == \"__main__\":\n    main()\n"
+  },
+  {
+    title: "Dangerous Writer",
+    tagline: "A Tkinter desktop app that erases everything you've written if you stop typing for too long.",
+    tags: ["Python", "Tkinter", "GUI", "OOP"],
+    overview: "A writing tool built to defeat perfectionism: stop typing for a few seconds and the entire document is wiped. Built as a class extending tk.Tk, with a live countdown progress bar, an adjustable timeout, and a save option for rescuing work before it vanishes.",
+    stack: ["Python", "Tkinter", "OOP"],
+    highlights: [
+      "Structured the whole app as a class inheriting from tk.Tk, keeping widget state and timer state together instead of using globals",
+      "Ran a 100ms polling loop with Tkinter's after() to drive a live progress bar, cancelling cleanly via after_cancel()",
+      "Tracked activity through two separate bindings — <Key> for keystrokes and the <<Modified>> virtual event for paste and programmatic edits",
+      "Added a file-dialog save path with error handling so work can be rescued before the timer fires"
+    ],
+    filename: "dangerous_writer.py",
+    run: "python dangerous_writer.py",
+    code: "import tkinter as tk\nfrom tkinter import messagebox, filedialog\nimport time\n\nTIMEOUT = 5.0  # seconds of inactivity before text is erased\n\nclass DangerousWriter(tk.Tk):\n    def __init__(self):\n        super().__init__()\n        self.title(\"Dangerous Writer - Desktop\")\n        self.geometry(\"900x600\")\n\n        # State\n        self.last_typing = None\n        self.timer_id = None\n        self.timeout = TIMEOUT\n\n        # UI\n        top = tk.Frame(self)\n        top.pack(fill=\"x\", padx=10, pady=8)\n\n        tk.Label(top, text=\"Timeout (sec):\").pack(side=\"left\")\n        self.timeout_var = tk.IntVar(value=int(self.timeout))\n        tk.Spinbox(top, from_=3, to=30, textvariable=self.timeout_var, width=5, command=self.on_timeout_change).pack(side=\"left\", padx=(4,10))\n\n        self.status_lbl = tk.Label(top, text=\"Idle \u2014 start typing\", fg=\"gray\")\n        self.status_lbl.pack(side=\"left\", padx=8)\n\n        tk.Button(top, text=\"Save (before vanish)\", command=self.save).pack(side=\"right\", padx=4)\n        tk.Button(top, text=\"Clear Now\", command=self.manual_clear).pack(side=\"right\")\n\n        self.text = tk.Text(self, wrap=\"word\", font=(\"Segoe UI\", 14))\n        self.text.pack(expand=True, fill=\"both\", padx=10, pady=(0,10))\n        self.text.bind(\"<<Modified>>\", self.on_modified)\n        self.text.bind(\"<Key>\", self.on_key)\n\n        # progress bar\n        self.progress = tk.Canvas(self, height=6, bg=\"#ddd\")\n        self.progress.pack(fill=\"x\", padx=10)\n        self.progress_fill = self.progress.create_rectangle(0,0,0,6,fill=\"#ff6b6b\",width=0)\n\n        # menu\n        men = tk.Menu(self)\n        filem = tk.Menu(men, tearoff=0)\n        filem.add_command(label=\"Save...\", command=self.save)\n        filem.add_separator()\n        filem.add_command(label=\"Exit\", command=self.quit)\n        men.add_cascade(label=\"File\", menu=filem)\n        self.config(menu=men)\n\n        # initial\n        self.reset_timer_state()\n\n    def on_timeout_change(self):\n        try:\n            v = int(self.timeout_var.get())\n            self.timeout = max(3, v)\n        except Exception:\n            self.timeout = TIMEOUT\n\n    def on_key(self, event):\n        # any key indicates activity\n        self.record_activity()\n\n    def on_modified(self, event=None):\n        # Text widget sets modified flag; we clear it and treat as activity\n        try:\n            if self.text.edit_modified():\n                self.text.edit_modified(False)\n                self.record_activity()\n        except Exception:\n            pass\n\n    def record_activity(self):\n        self.last_typing = time.time()\n        self.status_lbl.config(text=f\"Active \u2014 will vanish after {self.timeout} s of inactivity\", fg=\"black\")\n        if not self.timer_id:\n            self.start_timer()\n\n    def start_timer(self):\n        self.cancel_timer()\n        self.timer_tick()\n    \n    def cancel_timer(self):\n        if self.timer_id:\n            self.after_cancel(self.timer_id)\n            self.timer_id = None\n\n    def timer_tick(self):\n        if self.last_typing is None:\n            # nothing typed yet\n            self.progress.coords(self.progress_fill, (0,0,0,6))\n            self.status_lbl.config(text=\"Idle \u2014 start typing\", fg=\"gray\")\n            self.timer_id = None\n            return\n\n        elapsed = time.time() - self.last_typing\n        remaining = max(0.0, self.timeout - elapsed)\n        pct = min(1.0, elapsed / self.timeout)\n        w = int(self.progress.winfo_width() * pct) if self.progress.winfo_width() > 0 else 0\n        self.progress.coords(self.progress_fill, (0,0,w,6))\n        self.status_lbl.config(text=f\"Inactive: {elapsed:.1f}s \u2014 will vanish in {remaining:.1f}s\", fg=\"red\" if remaining<=2 else \"black\")\n\n        if remaining <= 0:\n            self.vanish()\n            self.timer_id = None\n            return\n        self.timer_id = self.after(100, self.timer_tick)\n\n    def vanish(self):\n        # before clearing give very brief visual feedback then wipe\n        self.status_lbl.config(text=\"VANISHED \u2014 all text erased\", fg=\"darkred\")\n        self.text.delete(\"1.0\", \"end\")\n        self.last_typing = None\n        self.progress.coords(self.progress_fill, (0,0,0,6))\n        self.bell()\n\n    def manual_clear(self):\n        if not self.text.get(\"1.0\",\"end-1c\"):\n            return\n        if messagebox.askyesno(\"Clear now?\", \"This will erase the editor content immediately. Continue?\"):\n            self.text.delete(\"1.0\",\"end\")\n            self.last_typing = None\n            self.progress.coords(self.progress_fill, (0,0,0,6))\n            self.status_lbl.config(text=\"Cleared manually\", fg=\"gray\")\n\n    def save(self):\n        content = self.text.get(\"1.0\",\"end-1c\")\n        if not content:\n            messagebox.showinfo(\"Save\", \"Nothing to save.\")\n            return\n        path = filedialog.asksaveasfilename(defaultextension=\".txt\", filetypes=[(\"Text files\",\"*.txt\"),(\"All files\",\"*.*\")])\n        if not path:\n            return\n        try:\n            with open(path, \"w\", encoding=\"utf-8\") as f:\n                f.write(content)\n            messagebox.showinfo(\"Saved\", f\"Saved to {path}\")\n        except Exception as e:\n            messagebox.showerror(\"Error\", f\"Failed to save: {e}\")\n\n    def reset_timer_state(self):\n        self.last_typing = None\n        self.cancel_timer()\n        self.progress.coords(self.progress_fill, (0,0,0,6))\n        self.status_lbl.config(text=\"Idle \u2014 start typing\", fg=\"gray\")\n\nif __name__ == \"__main__\":\n    app = DangerousWriter()\n    app.mainloop()\n"
+  },
+  {
+    title: "Morse Code Translator",
+    tagline: "A CLI tool that converts typed text into Morse code using a dictionary lookup.",
+    tags: ["Python", "CLI", "Dictionaries"],
+    overview: "Converts any typed text into Morse code, covering all 26 letters, digits 0-9, and common punctuation. Runs as a loop so you can convert repeatedly, and marks characters it doesn't recognise rather than failing.",
+    stack: ["Python", "Dictionaries"],
+    highlights: [
+      "Chose a dictionary over a list of tuples for O(1) lookups instead of scanning — a deliberate data-structure decision, noted in a comment in the source",
+      "Covered letters, digits, and punctuation, mapping the space character to '/' so word boundaries survive the conversion",
+      "Substituted '?' for unmapped characters so unexpected input degrades gracefully instead of raising a KeyError"
+    ],
+    filename: "morse-code-to-text.py",
+    run: "python morse-code-to-text.py",
+    code: "# Morse Code Dictionary\nMORSE_CODE = {\n    'A': '.-', 'B': '-...', 'C': '-.-.', 'D': '-..', 'E': '.', \n    'F': '..-.', 'G': '--.', 'H': '....', 'I': '..', 'J': '.---',\n    'K': '-.-', 'L': '.-..', 'M': '--', 'N': '-.', 'O': '---',\n    'P': '.--.', 'Q': '--.-', 'R': '.-.', 'S': '...', 'T': '-',\n    'U': '..-', 'V': '...-', 'W': '.--', 'X': '-..-', 'Y': '-.--',\n    'Z': '--..', \n    '1': '.----', '2': '..---', '3': '...--', '4': '....-', '5': '.....',\n    '6': '-....', '7': '--...', '8': '---..', '9': '----.', '0': '-----',\n    ' ': '/', '.': '.-.-.-', ',': '--..--', '?': '..--..', \n    '!': '-.-.--', '/': '-..-.', '-': '-....-', '(': '-.--.', ')': '-.--.-'\n}\n\n# using dictionary because python can immediately look it up as opposed to checking through a list of tuples, which is slower\n\ndef text_to_morse(text):\n    \"\"\"Convert text to Morse code\"\"\"\n    morse = []\n    for char in text.upper():\n        if char in MORSE_CODE:\n            morse.append(MORSE_CODE[char])\n        else:\n            morse.append('?')  # Unknown character\n    return ' '.join(morse)\n\ndef main():\n    print(\"=\" * 50)\n    print(\"TEXT TO MORSE CODE CONVERTER\")\n    print(\"=\" * 50)\n    \n    while True:\n        text = input(\"\\nEnter text to convert (or 'quit' to exit): \")\n        \n        if text.lower() == 'quit':\n            print(\"Goodbye!\")\n            break\n        \n        morse_code = text_to_morse(text)\n        print(f\"\\nOriginal Text: {text}\")\n        print(f\"Morse Code: {morse_code}\")\n\nif __name__ == \"__main__\":\n    main()"
+  }
+];
+
+/* ===================================================================== */
+
+const reduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+
+// ---- populate simple text fields ----
+document.getElementById("nav-name").textContent = PROFILE.name;
+document.getElementById("hero-name").textContent = PROFILE.name;
+document.getElementById("hero-role").textContent = PROFILE.role;
+document.getElementById("hero-tagline").textContent = PROFILE.tagline;
+document.getElementById("about-p1").textContent = ABOUT.p1;
+document.getElementById("about-p2").textContent = ABOUT.p2;
+document.getElementById("about-status").textContent = PROFILE.status;
+document.getElementById("about-location").textContent = PROFILE.location;
+document.getElementById("about-focus").textContent = PROFILE.focus;
+document.getElementById("footer-year").textContent = new Date().getFullYear();
+
+// ---- terminal boot sequence ----
+const bootLines = [
+  { prompt: "$ whoami", out: PROFILE.name + " — " + PROFILE.role },
+  { prompt: "$ cat status.txt", out: PROFILE.tagline },
+  { prompt: "$ ./load-portfolio.sh", out: "Loading projects and build notes…" }
+];
+const termEl = document.getElementById("terminal-body");
+
+function renderStatic(){
+  termEl.innerHTML = bootLines.map(l =>
+    `<div class="ln"><span class="prompt">${l.prompt}</span></div><div class="ln out">${l.out}</div>`
+  ).join("") + '<span class="terminal-cursor"></span>';
+}
+
+async function typeLine(el, text, speed){
+  for(let i=0;i<=text.length;i++){
+    el.textContent = text.slice(0,i);
+    await new Promise(r=>setTimeout(r, speed));
+  }
+}
+
+async function bootType(){
+  for(const line of bootLines){
+    const promptRow = document.createElement("div");
+    promptRow.className = "ln";
+    const promptSpan = document.createElement("span");
+    promptSpan.className = "prompt";
+    promptRow.appendChild(promptSpan);
+    termEl.appendChild(promptRow);
+    await typeLine(promptSpan, line.prompt, 22);
+
+    const outRow = document.createElement("div");
+    outRow.className = "ln out";
+    termEl.appendChild(outRow);
+    await typeLine(outRow, line.out, 12);
+    await new Promise(r=>setTimeout(r, 150));
+  }
+  const cursor = document.createElement("span");
+  cursor.className = "terminal-cursor";
+  termEl.appendChild(cursor);
+}
+
+if(reduceMotion){ renderStatic(); } else { bootType(); }
+
+// ---- skills ----
+const skillsGrid = document.getElementById("skills-grid");
+Object.entries(SKILLS).forEach(([group, items])=>{
+  const div = document.createElement("div");
+  div.className = "skill-group";
+  div.innerHTML = `<h4>${group}</h4><div class="skill-chips">${items.map(i=>`<span class="chip">${i}</span>`).join("")}</div>`;
+  skillsGrid.appendChild(div);
+});
+
+// ---- projects + filters ----
+const projectGrid = document.getElementById("project-grid");
+const filtersEl = document.getElementById("filters");
+const allTags = ["All", ...new Set(PROJECTS.flatMap(p=>p.tags))];
+
+// Placeholder links ("#" or empty) are skipped entirely rather than rendered
+// as buttons that go nowhere.
+function linkBtn(url, label){
+  if(!url || url === "#") return "";
+  return `<a class="btn btn-ghost" href="${url}" target="_blank" rel="noopener">${label}</a>`;
+}
+
+function renderProjects(activeTag){
+  projectGrid.innerHTML = "";
+  PROJECTS.forEach((p, idx)=>{
+    const match = activeTag === "All" || p.tags.includes(activeTag);
+    const card = document.createElement("div");
+    card.className = "project-card reveal is-visible" + (match ? "" : " is-hidden");
+    card.innerHTML = `
+      <div class="project-card-top">
+        <div class="project-title">${p.title}</div>
+        <span class="project-status">${p.status}</span>
+      </div>
+      <p class="project-tagline">${p.tagline}</p>
+      <div class="project-tags">${p.tags.map(t=>`<span class="tag">${t}</span>`).join("")}</div>
+      <div class="project-actions">
+        <button class="btn btn-primary" data-detail="${idx}">Details</button>
+        ${linkBtn(p.github, "GitHub")}
+        ${linkBtn(p.demoUrl, "Hosted demo")}
+      </div>`;
+    projectGrid.appendChild(card);
+  });
+  projectGrid.querySelectorAll("[data-detail]").forEach(btn=>{
+    btn.addEventListener("click", ()=>openModal(PROJECTS[+btn.dataset.detail]));
+  });
+}
+
+filtersEl.innerHTML = allTags.map((t,i)=>`<button class="filter-chip${i===0?" active":""}" data-tag="${t}">${t}</button>`).join("");
+filtersEl.querySelectorAll(".filter-chip").forEach(chip=>{
+  chip.addEventListener("click", ()=>{
+    filtersEl.querySelectorAll(".filter-chip").forEach(c=>c.classList.remove("active"));
+    chip.classList.add("active");
+    renderProjects(chip.dataset.tag);
+  });
+});
+renderProjects("All");
+
+// ---- more projects (compact list) ----
+const moreList = document.getElementById("more-list");
+MORE_PROJECTS.forEach((item, idx)=>{
+  const row = document.createElement("div");
+  row.className = "more-item";
+  row.innerHTML = `
+    <div class="more-item-main">
+      <div class="more-item-title">${item.title}</div>
+      <div class="more-item-tagline">${item.tagline}</div>
+    </div>
+    <div class="more-item-right">
+      ${item.tags.map(t=>`<span class="tag">${t}</span>`).join("")}
+      <button class="btn btn-ghost" data-more="${idx}">Details &amp; code</button>
+    </div>`;
+  moreList.appendChild(row);
+});
+moreList.querySelectorAll("[data-more]").forEach(btn=>{
+  btn.addEventListener("click", ()=>openMoreModal(MORE_PROJECTS[+btn.dataset.more]));
+});
+
+// ---- modal ----
+const modalRoot = document.getElementById("modal-root");
+let lastFocused = null;
+
+function escapeHtml(str){
+  return String(str).replace(/&/g,"&amp;").replace(/</g,"&lt;").replace(/>/g,"&gt;");
+}
+
+// Shared source-code viewer. Used by both modals; renders nothing if the
+// project has no embedded code (e.g. multi-file projects).
+function codeSectionHtml(p){
+  if(!p.code) return "";
+  return `
+    <div class="modal-section">
+      <h4>Source code</h4>
+      <div class="code-head">
+        <span class="code-filename">${p.filename}</span>
+        <span class="code-lines">${p.code.split("\n").length} lines</span>
+        <button class="demo-copy code-copy" id="code-copy-btn">Copy code</button>
+      </div>
+      <pre class="code-block"><code>${escapeHtml(p.code)}</code></pre>
+    </div>`;
+}
+
+// Wires the copy button inside a rendered code section.
+function wireCodeCopy(p){
+  const copyBtn = document.getElementById("code-copy-btn");
+  if(!copyBtn || !p.code) return;
+  copyBtn.addEventListener("click", async ()=>{
+    try{
+      await navigator.clipboard.writeText(p.code);
+      copyBtn.textContent = "Copied ✓";
+      setTimeout(()=>{ copyBtn.textContent = "Copy code"; }, 1500);
+    }catch(e){ /* clipboard unavailable — no-op */ }
+  });
+}
+
+function tryItHtml(p){
+  if(!p.tryIt) return "";
+  const t = p.tryIt;
+  // If you later host a zip of the project, put the link in tryIt.download and
+  // this becomes a real download button.
+  const dlBtn = t.download
+    ? `<a class="btn btn-primary demo-dl" href="${t.download}" download>Download project folder</a>`
+    : `<span class="demo-dl-note">Ask me for the project folder and I'll send it over.</span>`;
+  return `
+    <div class="modal-section">
+      <h4>Try it <span class="demo-badge local">Run locally</span></h4>
+      <div class="demo-steps">
+        <div class="demo-step">
+          <span class="demo-step-num">1</span>
+          <div>${dlBtn}</div>
+        </div>
+        <div class="demo-step">
+          <span class="demo-step-num">2</span>
+          <div>
+            <p class="demo-step-label">Unzip it, then run these from inside the folder:</p>
+            <div class="demo-code">
+              <button class="demo-copy" id="demo-copy-btn">Copy</button>
+              <span>${escapeHtml(t.commands)}</span>
+            </div>
+          </div>
+        </div>
+      </div>
+      <p class="demo-hint">${t.note}</p>
+    </div>`;
+}
+
+function openModal(p){
+  lastFocused = document.activeElement;
+  modalRoot.innerHTML = `
+    <div class="modal-backdrop" id="modal-backdrop">
+      <div class="modal" role="dialog" aria-modal="true" aria-labelledby="modal-title">
+        <div class="modal-head">
+          <div>
+            <h3 id="modal-title">${p.title}</h3>
+            <p>${p.tagline}</p>
+          </div>
+          <button class="modal-close" aria-label="Close">&times;</button>
+        </div>
+        <div class="modal-body">
+          <div class="modal-section">
+            <h4>Overview</h4>
+            <p>${p.overview}</p>
+          </div>
+          <div class="modal-section">
+            <h4>Stack</h4>
+            <div class="project-tags">${p.stack.map(s=>`<span class="tag">${s}</span>`).join("")}</div>
+          </div>
+          <div class="modal-section">
+            <h4>Highlights</h4>
+            <ul>${p.highlights.map(h=>`<li>${h}</li>`).join("")}</ul>
+          </div>
+          ${tryItHtml(p)}
+          ${codeSectionHtml(p)}
+        </div>
+      </div>
+    </div>`;
+  const backdrop = document.getElementById("modal-backdrop");
+  requestAnimationFrame(()=>backdrop.classList.add("open"));
+  backdrop.querySelector(".modal-close").addEventListener("click", closeModal);
+  backdrop.addEventListener("click", e=>{ if(e.target === backdrop) closeModal(); });
+  document.addEventListener("keydown", onModalKey);
+  backdrop.querySelector(".modal-close").focus();
+
+  if(p.tryIt && p.tryIt.type === "local"){
+    const copyBtn = document.getElementById("demo-copy-btn");
+    if(copyBtn){
+      copyBtn.addEventListener("click", async ()=>{
+        try{
+          await navigator.clipboard.writeText(p.tryIt.commands);
+          copyBtn.textContent = "Copied ✓";
+          setTimeout(()=>{ copyBtn.textContent = "Copy"; }, 1500);
+        }catch(e){ /* clipboard unavailable — no-op */ }
+      });
+    }
+  }
+  wireCodeCopy(p);
+}
+
+// Modal for the smaller projects: same detail treatment as the featured ones,
+// plus the actual source code inline so there's nothing to download or clone.
+function openMoreModal(p){
+  lastFocused = document.activeElement;
+  modalRoot.innerHTML = `
+    <div class="modal-backdrop" id="modal-backdrop">
+      <div class="modal" role="dialog" aria-modal="true" aria-labelledby="modal-title">
+        <div class="modal-head">
+          <div>
+            <h3 id="modal-title">${p.title}</h3>
+            <p>${p.tagline}</p>
+          </div>
+          <button class="modal-close" aria-label="Close">&times;</button>
+        </div>
+        <div class="modal-body">
+          <div class="modal-section">
+            <h4>Overview</h4>
+            <p>${p.overview}</p>
+          </div>
+          <div class="modal-section">
+            <h4>Stack</h4>
+            <div class="project-tags">${p.stack.map(x=>`<span class="tag">${x}</span>`).join("")}</div>
+          </div>
+          <div class="modal-section">
+            <h4>Highlights</h4>
+            <ul>${p.highlights.map(h=>`<li>${h}</li>`).join("")}</ul>
+          </div>
+          <div class="modal-section">
+            <h4>Run it</h4>
+            <div class="demo-code">
+              <span>${escapeHtml(p.run)}</span>
+            </div>
+          </div>
+          ${codeSectionHtml(p)}
+        </div>
+      </div>
+    </div>`;
+  const backdrop = document.getElementById("modal-backdrop");
+  requestAnimationFrame(()=>backdrop.classList.add("open"));
+  backdrop.querySelector(".modal-close").addEventListener("click", closeModal);
+  backdrop.addEventListener("click", e=>{ if(e.target === backdrop) closeModal(); });
+  document.addEventListener("keydown", onModalKey);
+  backdrop.querySelector(".modal-close").focus();
+
+  wireCodeCopy(p);
+}
+
+function closeModal(){
+  const backdrop = document.getElementById("modal-backdrop");
+  if(!backdrop) return;
+  backdrop.classList.remove("open");
+  document.removeEventListener("keydown", onModalKey);
+  setTimeout(()=>{ modalRoot.innerHTML = ""; if(lastFocused) lastFocused.focus(); }, 180);
+}
+
+function onModalKey(e){ if(e.key === "Escape") closeModal(); }
+
+// ---- contact ----
+const contactLines = document.getElementById("contact-lines");
+contactLines.innerHTML = `
+  <div class="contact-line">
+    <span class="prompt">$</span>
+    <button class="linklike" id="copy-email">contact --email ${PROFILE.email}</button>
+    <span class="copy-feedback" id="copy-feedback">copied ✓</span>
+  </div>
+  <div class="contact-line">
+    <span class="prompt">$</span>
+    <a href="${PROFILE.github}" target="_blank" rel="noopener">open --github ${PROFILE.github.replace("https://","")}</a>
+  </div>
+  <div class="contact-line">
+    <span class="prompt">$</span>
+    <a href="${PROFILE.linkedin}" target="_blank" rel="noopener">open --linkedin ${PROFILE.linkedin.replace("https://","")}</a>
+  </div>`;
+
+document.getElementById("copy-email").addEventListener("click", async ()=>{
+  try{
+    await navigator.clipboard.writeText(PROFILE.email);
+    const fb = document.getElementById("copy-feedback");
+    fb.classList.add("show");
+    setTimeout(()=>fb.classList.remove("show"), 1600);
+  }catch(e){ /* clipboard unavailable — no-op */ }
+});
+
+// ---- scroll reveal ----
+const revealEls = document.querySelectorAll(".reveal");
+if(reduceMotion){
+  revealEls.forEach(el=>el.classList.add("is-visible"));
+} else {
+  const io = new IntersectionObserver((entries)=>{
+    entries.forEach(entry=>{
+      if(entry.isIntersecting){ entry.target.classList.add("is-visible"); io.unobserve(entry.target); }
+    });
+  }, { threshold: 0.12 });
+  revealEls.forEach(el=>io.observe(el));
+}
+
+// a little something for anyone poking at devtools
+console.log("%cHey — thanks for opening the console.", "color:#f5a623;font-family:monospace;font-size:13px;");
+console.log("%cThis whole site is one HTML file with a config object at the top. Edit PROFILE, PROJECTS, etc. to make it yours.", "color:#9d97b3;font-family:monospace;font-size:12px;");
+</script>
+</body>
+</html>
