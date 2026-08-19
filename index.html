@@ -290,6 +290,18 @@
   .demo-step-label{ font-size:13.5px; color:var(--text-muted); margin-bottom:8px; }
   .demo-dl{ padding:9px 16px; font-size:13px; }
   .demo-dl-note{ font-family:var(--mono); font-size:13px; color:var(--text-dim); }
+  .demo-online{
+    background:#4fd1c50f; border:1px solid #4fd1c540; border-left:3px solid var(--teal);
+    border-radius:8px; padding:14px 16px; margin-bottom:4px;
+  }
+  .demo-or{
+    font-family:var(--mono); font-size:11.5px; text-transform:uppercase;
+    letter-spacing:.08em; color:var(--text-dim);
+    display:flex; align-items:center; gap:12px; margin:14px 0;
+  }
+  .demo-or::before, .demo-or::after{
+    content:''; flex:1; height:1px; background:var(--border);
+  }
   .demo-code{
     font-family:var(--mono); font-size:13px; color:var(--text);
     background:#0f0d16; border:1px solid var(--border); border-radius:8px;
@@ -362,7 +374,7 @@
 
 <nav class="topnav">
   <div class="topnav-inner">
-    <div class="brand"><span class="cursor">&gt;_</span> <span id="nav-name">portfolio</span></div>
+    <div class="brand"><span class="cursor">&gt;_</span> <span id="nav-name">Harris Aman</span></div>
     <div class="navtabs">
       <a href="#about">about.md</a>
       <a href="#projects">projects/</a>
@@ -387,9 +399,9 @@
         <div class="terminal-body" id="terminal-body"></div>
       </div>
       <div class="hero-identity">
-        <h1 class="hero-name" id="hero-name">Your Name</h1>
-        <div class="hero-role" id="hero-role">Aspiring Software Developer</div>
-        <p class="hero-tagline" id="hero-tagline">Replace with your tagline — what you're building toward and why.</p>
+        <h1 class="hero-name" id="hero-name">Harris Aman</h1>
+        <div class="hero-role" id="hero-role">Software Developer</div>
+        <p class="hero-tagline" id="hero-tagline">Learning in public, one commit at a time — building real things while I learn.</p>
         <div class="hero-actions">
           <a href="#projects" class="btn btn-primary">View projects</a>
           <a href="#contact" class="btn btn-ghost">Get in touch</a>
@@ -411,8 +423,8 @@
         <p id="about-p2">What I care about more than the project list is how I work. Every one of these ran locally before it went on this page.</p>
         <div class="readme-meta">
           <div><span>Status</span><span class="status-dot"></span><span id="about-status">Open to opportunities</span></div>
-          <div><span>Based in</span><span id="about-location">City, Country</span></div>
-          <div><span>Focus</span><span id="about-focus">Web development</span></div>
+          <div><span>Based in</span><span id="about-location">Mississauga, Ontario</span></div>
+          <div><span>Focus</span><span id="about-focus">Full-stack &amp; Python development</span></div>
         </div>
       </div>
     </div>
@@ -439,6 +451,22 @@
       </div>
       <div class="filters reveal" id="filters"></div>
       <div class="project-grid reveal" id="project-grid"></div>
+      <noscript>
+        <!-- Plain-HTML fallback for crawlers and anyone browsing without
+             JavaScript. The interactive cards above are rendered from the
+             PROJECTS config; this mirrors the same content statically. -->
+        <ul style="line-height:1.8;color:var(--text-muted);">
+          <li><strong style="color:var(--text);">Book Scraper</strong> — scrapes book listings to CSV with proper error handling. Python, Requests, BeautifulSoup.</li>
+          <li><strong style="color:var(--text);">Cookie Clicker Bot</strong> — a Selenium bot that plays an idle game and buys its own upgrades. Python, Selenium WebDriver.</li>
+          <li><strong style="color:var(--text);">Movie Rating App</strong> — full CRUD Flask app pulling film data from the TMDB API. Flask, SQLAlchemy, SQLite, Flask-WTF.</li>
+          <li><strong style="color:var(--text);">Tic-Tac-Toe</strong> — command-line game with win, tie and input validation. Python.</li>
+          <li><strong style="color:var(--text);">Morse Code Translator</strong> — converts text to Morse via dictionary lookup. Python.</li>
+        </ul>
+        <p style="color:var(--text-muted);margin-top:14px;">
+          Contact: <a href="mailto:harrisaman345@gmail.com" style="color:var(--amber);">harrisaman345@gmail.com</a> ·
+          <a href="https://github.com/HarrisAman" style="color:var(--amber);">github.com/HarrisAman</a>
+        </p>
+      </noscript>
     </div>
   </section>
 
@@ -493,7 +521,7 @@ const PROFILE = {
   focus: "Full-stack & Python development",
   email: "harrisaman345@gmail.com",
   github: "https://github.com/HarrisAman",
-  linkedin: "www.linkedin.com/in/harrisaman"
+  linkedin: "https://www.linkedin.com/feed/"
 };
 
 const ABOUT = {
@@ -527,10 +555,11 @@ const PROJECTS = [
       "Hardened it after finding it reported success on a failed request — now it exits non-zero and won't overwrite a good CSV with an empty one"
     ],
     github: "#",
-    demoUrl: "#",
+    demoUrl: "https://colab.research.google.com/github/HarrisAman/project-notebooks/blob/main/book_scraper.ipynb",
     tryIt: {
       type: "local",
       commands: "cd scraper\npip install requests beautifulsoup4\npython books_scrape.py",
+      download: "projects/book-scraper.zip",
       note: "Runs against the live practice site and writes books.csv in a few seconds — good one to run live and open the CSV right after."
     },
     filename: "books_scrape.py",
@@ -550,10 +579,11 @@ const PROJECTS = [
       "Wrapped element lookups in NoSuchElementException handling so a missing prompt or a mid-game DOM change doesn't crash the run"
     ],
     github: "#",
-    demoUrl: "#",
+    demoUrl: "https://colab.research.google.com/github/HarrisAman/project-notebooks/blob/main/cookie_clicker_bot.ipynb",
     tryIt: {
       type: "local",
       commands: "cd cookie-clicker-bot\npip install selenium\npython main.py",
+      download: "projects/cookie-clicker-bot.zip",
       note: "Opens a real Chrome window and plays for five minutes, so it needs Chrome plus a matching ChromeDriver on PATH. Very watchable as a live demo — the numbers climb on screen. Start it early in the interview and let it run in the background."
     },
     filename: "main.py",
@@ -573,11 +603,12 @@ const PROJECTS = [
       "Recomputed each film's ranking from its rating order on page load, so the list stays correctly ordered after any edit"
     ],
     github: "#",
-    demoUrl: "#",
+    demoUrl: "https://movie-rating-app-965q.onrender.com",
     tryIt: {
       type: "local",
       commands: "cd movie-rating-app\npip install -r requirements.txt\npython main.py",
-      note: "Runs at http://localhost:5000 and needs a TMDB API key. Good one to have already running with a few films saved, so the ranked list is populated when you show it."
+      download: "projects/movie-rating-app.zip",
+      note: "The live version is hosted on Render's free tier, which sleeps after 15 minutes of inactivity — the first visit can take up to a minute to wake up. Films added there aren't kept permanently, since the free tier has no persistent disk."
     }
   }
 ];
@@ -600,23 +631,9 @@ const MORE_PROJECTS = [
     ],
     filename: "tic-tac-toe.py",
     run: "python tic-tac-toe.py",
+    download: "projects/tic-tac-toe.zip",
+    demoUrl: "https://colab.research.google.com/github/HarrisAman/project-notebooks/blob/main/tic_tac_toe.ipynb",
     code: "def print_board(board):\n     # displays board\n    print(\"\\n\")\n    for i in range(3):\n        print(f\" {board[i][0]} | {board[i][1]} | {board[i][2]} \")\n        if i < 2:\n            print(\"-----------\")\n    print(\"\\n\")\n\ndef check_winner(board, player):\n    \"\"\"Check if the current player has won\"\"\"\n    # checks rows\n    for row in board:\n        if all(cell == player for cell in row):\n            return True\n    \n    # Check columns\n    for col in range(3):\n        if all(board[row][col] == player for row in range(3)):\n            return True\n    \n    # Check diagonals\n    if all(board[i][i] == player for i in range(3)):\n        return True\n    if all(board[i][2-i] == player for i in range(3)):\n        return True\n    \n    return False\n\ndef is_board_full(board):\n    \"\"\"Check if board is full (tie game)\"\"\"\n    return all(cell != \" \" for row in board for cell in row)\n\ndef get_move(board, player):\n    \"\"\"Get valid move from player\"\"\"\n    while True:\n        try:\n            position = int(input(f\"Player {player}, enter position (1-9): \"))\n            if position < 1 or position > 9:\n                print(\"Please enter a number between 1 and 9!\")\n                continue\n            \n            row = (position - 1) // 3\n            col = (position - 1) % 3\n            \n            if board[row][col] != \" \":\n                print(\"That position is already taken!\")\n                continue\n            \n            return row, col\n        except ValueError:\n            print(\"Invalid input! Enter a number between 1 and 9.\")\n\ndef play_game():\n    \"\"\"Main game loop\"\"\"\n    print(\"=\" * 50)\n    print(\"WELCOME TO TIC TAC TOE\")\n    print(\"=\" * 50)\n    print(\"\\nPositions are numbered 1-9:\")\n    print(\" 1 | 2 | 3 \")\n    print(\"-----------\")\n    print(\" 4 | 5 | 6 \")\n    print(\"-----------\")\n    print(\" 7 | 8 | 9 \")\n    \n    board = [[\" \" for _ in range(3)] for _ in range(3)]\n    current_player = \"X\"\n    \n    while True:\n        print_board(board)\n        \n        # Get player move\n        row, col = get_move(board, current_player)\n        board[row][col] = current_player\n        \n        # Check for winner\n        if check_winner(board, current_player):\n            print_board(board)\n            print(f\"\ud83c\udf89 Player {current_player} WINS! \ud83c\udf89\")\n            break\n        \n        # Check for tie\n        if is_board_full(board):\n            print_board(board)\n            print(\"It's a TIE! Good game!\")\n            break\n        \n        # Switch player\n        current_player = \"O\" if current_player == \"X\" else \"X\"\n\ndef main():\n    \"\"\"Main program loop\"\"\"\n    while True:\n        play_game()\n        \n        play_again = input(\"\\nWould you like to play again? (yes/no): \").lower()\n        if play_again not in [\"yes\", \"y\"]:\n            print(\"Thanks for playing! Goodbye!\")\n            break\n\nif __name__ == \"__main__\":\n    main()\n"
-  },
-  {
-    title: "Dangerous Writer",
-    tagline: "A Tkinter desktop app that erases everything you've written if you stop typing for too long.",
-    tags: ["Python", "Tkinter", "GUI", "OOP"],
-    overview: "A writing tool built to defeat perfectionism: stop typing for a few seconds and the entire document is wiped. Built as a class extending tk.Tk, with a live countdown progress bar, an adjustable timeout, and a save option for rescuing work before it vanishes.",
-    stack: ["Python", "Tkinter", "OOP"],
-    highlights: [
-      "Structured the whole app as a class inheriting from tk.Tk, keeping widget state and timer state together instead of using globals",
-      "Ran a 100ms polling loop with Tkinter's after() to drive a live progress bar, cancelling cleanly via after_cancel()",
-      "Tracked activity through two separate bindings — <Key> for keystrokes and the <<Modified>> virtual event for paste and programmatic edits",
-      "Added a file-dialog save path with error handling so work can be rescued before the timer fires"
-    ],
-    filename: "dangerous_writer.py",
-    run: "python dangerous_writer.py",
-    code: "import tkinter as tk\nfrom tkinter import messagebox, filedialog\nimport time\n\nTIMEOUT = 5.0  # seconds of inactivity before text is erased\n\nclass DangerousWriter(tk.Tk):\n    def __init__(self):\n        super().__init__()\n        self.title(\"Dangerous Writer - Desktop\")\n        self.geometry(\"900x600\")\n\n        # State\n        self.last_typing = None\n        self.timer_id = None\n        self.timeout = TIMEOUT\n\n        # UI\n        top = tk.Frame(self)\n        top.pack(fill=\"x\", padx=10, pady=8)\n\n        tk.Label(top, text=\"Timeout (sec):\").pack(side=\"left\")\n        self.timeout_var = tk.IntVar(value=int(self.timeout))\n        tk.Spinbox(top, from_=3, to=30, textvariable=self.timeout_var, width=5, command=self.on_timeout_change).pack(side=\"left\", padx=(4,10))\n\n        self.status_lbl = tk.Label(top, text=\"Idle \u2014 start typing\", fg=\"gray\")\n        self.status_lbl.pack(side=\"left\", padx=8)\n\n        tk.Button(top, text=\"Save (before vanish)\", command=self.save).pack(side=\"right\", padx=4)\n        tk.Button(top, text=\"Clear Now\", command=self.manual_clear).pack(side=\"right\")\n\n        self.text = tk.Text(self, wrap=\"word\", font=(\"Segoe UI\", 14))\n        self.text.pack(expand=True, fill=\"both\", padx=10, pady=(0,10))\n        self.text.bind(\"<<Modified>>\", self.on_modified)\n        self.text.bind(\"<Key>\", self.on_key)\n\n        # progress bar\n        self.progress = tk.Canvas(self, height=6, bg=\"#ddd\")\n        self.progress.pack(fill=\"x\", padx=10)\n        self.progress_fill = self.progress.create_rectangle(0,0,0,6,fill=\"#ff6b6b\",width=0)\n\n        # menu\n        men = tk.Menu(self)\n        filem = tk.Menu(men, tearoff=0)\n        filem.add_command(label=\"Save...\", command=self.save)\n        filem.add_separator()\n        filem.add_command(label=\"Exit\", command=self.quit)\n        men.add_cascade(label=\"File\", menu=filem)\n        self.config(menu=men)\n\n        # initial\n        self.reset_timer_state()\n\n    def on_timeout_change(self):\n        try:\n            v = int(self.timeout_var.get())\n            self.timeout = max(3, v)\n        except Exception:\n            self.timeout = TIMEOUT\n\n    def on_key(self, event):\n        # any key indicates activity\n        self.record_activity()\n\n    def on_modified(self, event=None):\n        # Text widget sets modified flag; we clear it and treat as activity\n        try:\n            if self.text.edit_modified():\n                self.text.edit_modified(False)\n                self.record_activity()\n        except Exception:\n            pass\n\n    def record_activity(self):\n        self.last_typing = time.time()\n        self.status_lbl.config(text=f\"Active \u2014 will vanish after {self.timeout} s of inactivity\", fg=\"black\")\n        if not self.timer_id:\n            self.start_timer()\n\n    def start_timer(self):\n        self.cancel_timer()\n        self.timer_tick()\n    \n    def cancel_timer(self):\n        if self.timer_id:\n            self.after_cancel(self.timer_id)\n            self.timer_id = None\n\n    def timer_tick(self):\n        if self.last_typing is None:\n            # nothing typed yet\n            self.progress.coords(self.progress_fill, (0,0,0,6))\n            self.status_lbl.config(text=\"Idle \u2014 start typing\", fg=\"gray\")\n            self.timer_id = None\n            return\n\n        elapsed = time.time() - self.last_typing\n        remaining = max(0.0, self.timeout - elapsed)\n        pct = min(1.0, elapsed / self.timeout)\n        w = int(self.progress.winfo_width() * pct) if self.progress.winfo_width() > 0 else 0\n        self.progress.coords(self.progress_fill, (0,0,w,6))\n        self.status_lbl.config(text=f\"Inactive: {elapsed:.1f}s \u2014 will vanish in {remaining:.1f}s\", fg=\"red\" if remaining<=2 else \"black\")\n\n        if remaining <= 0:\n            self.vanish()\n            self.timer_id = None\n            return\n        self.timer_id = self.after(100, self.timer_tick)\n\n    def vanish(self):\n        # before clearing give very brief visual feedback then wipe\n        self.status_lbl.config(text=\"VANISHED \u2014 all text erased\", fg=\"darkred\")\n        self.text.delete(\"1.0\", \"end\")\n        self.last_typing = None\n        self.progress.coords(self.progress_fill, (0,0,0,6))\n        self.bell()\n\n    def manual_clear(self):\n        if not self.text.get(\"1.0\",\"end-1c\"):\n            return\n        if messagebox.askyesno(\"Clear now?\", \"This will erase the editor content immediately. Continue?\"):\n            self.text.delete(\"1.0\",\"end\")\n            self.last_typing = None\n            self.progress.coords(self.progress_fill, (0,0,0,6))\n            self.status_lbl.config(text=\"Cleared manually\", fg=\"gray\")\n\n    def save(self):\n        content = self.text.get(\"1.0\",\"end-1c\")\n        if not content:\n            messagebox.showinfo(\"Save\", \"Nothing to save.\")\n            return\n        path = filedialog.asksaveasfilename(defaultextension=\".txt\", filetypes=[(\"Text files\",\"*.txt\"),(\"All files\",\"*.*\")])\n        if not path:\n            return\n        try:\n            with open(path, \"w\", encoding=\"utf-8\") as f:\n                f.write(content)\n            messagebox.showinfo(\"Saved\", f\"Saved to {path}\")\n        except Exception as e:\n            messagebox.showerror(\"Error\", f\"Failed to save: {e}\")\n\n    def reset_timer_state(self):\n        self.last_typing = None\n        self.cancel_timer()\n        self.progress.coords(self.progress_fill, (0,0,0,6))\n        self.status_lbl.config(text=\"Idle \u2014 start typing\", fg=\"gray\")\n\nif __name__ == \"__main__\":\n    app = DangerousWriter()\n    app.mainloop()\n"
   },
   {
     title: "Morse Code Translator",
@@ -631,6 +648,8 @@ const MORE_PROJECTS = [
     ],
     filename: "morse-code-to-text.py",
     run: "python morse-code-to-text.py",
+    download: "projects/morse-code-translator.zip",
+    demoUrl: "https://colab.research.google.com/github/HarrisAman/project-notebooks/blob/main/morse_code.ipynb",
     code: "# Morse Code Dictionary\nMORSE_CODE = {\n    'A': '.-', 'B': '-...', 'C': '-.-.', 'D': '-..', 'E': '.', \n    'F': '..-.', 'G': '--.', 'H': '....', 'I': '..', 'J': '.---',\n    'K': '-.-', 'L': '.-..', 'M': '--', 'N': '-.', 'O': '---',\n    'P': '.--.', 'Q': '--.-', 'R': '.-.', 'S': '...', 'T': '-',\n    'U': '..-', 'V': '...-', 'W': '.--', 'X': '-..-', 'Y': '-.--',\n    'Z': '--..', \n    '1': '.----', '2': '..---', '3': '...--', '4': '....-', '5': '.....',\n    '6': '-....', '7': '--...', '8': '---..', '9': '----.', '0': '-----',\n    ' ': '/', '.': '.-.-.-', ',': '--..--', '?': '..--..', \n    '!': '-.-.--', '/': '-..-.', '-': '-....-', '(': '-.--.', ')': '-.--.-'\n}\n\n# using dictionary because python can immediately look it up as opposed to checking through a list of tuples, which is slower\n\ndef text_to_morse(text):\n    \"\"\"Convert text to Morse code\"\"\"\n    morse = []\n    for char in text.upper():\n        if char in MORSE_CODE:\n            morse.append(MORSE_CODE[char])\n        else:\n            morse.append('?')  # Unknown character\n    return ' '.join(morse)\n\ndef main():\n    print(\"=\" * 50)\n    print(\"TEXT TO MORSE CODE CONVERTER\")\n    print(\"=\" * 50)\n    \n    while True:\n        text = input(\"\\nEnter text to convert (or 'quit' to exit): \")\n        \n        if text.lower() == 'quit':\n            print(\"Goodbye!\")\n            break\n        \n        morse_code = text_to_morse(text)\n        print(f\"\\nOriginal Text: {text}\")\n        print(f\"Morse Code: {morse_code}\")\n\nif __name__ == \"__main__\":\n    main()"
   }
 ];
@@ -716,6 +735,19 @@ function linkBtn(url, label){
   return `<a class="btn btn-ghost" href="${url}" target="_blank" rel="noopener">${label}</a>`;
 }
 
+// A Colab notebook and a deployed web app are both "demos", but they're a
+// different promise to the visitor, so they get different labels.
+function demoLabel(url){
+  return url && url.includes("colab.research.google.com") ? "Run it online" : "Live demo";
+}
+
+// The demo button is the most useful one on the card, so it's the primary
+// action when a project actually has a runnable link.
+function demoBtn(url){
+  if(!url || url === "#") return "";
+  return `<a class="btn btn-primary" href="${url}" target="_blank" rel="noopener">${demoLabel(url)} &#8599;</a>`;
+}
+
 function renderProjects(activeTag){
   projectGrid.innerHTML = "";
   PROJECTS.forEach((p, idx)=>{
@@ -730,9 +762,9 @@ function renderProjects(activeTag){
       <p class="project-tagline">${p.tagline}</p>
       <div class="project-tags">${p.tags.map(t=>`<span class="tag">${t}</span>`).join("")}</div>
       <div class="project-actions">
-        <button class="btn btn-primary" data-detail="${idx}">Details</button>
+        ${demoBtn(p.demoUrl)}
+        <button class="btn btn-ghost" data-detail="${idx}">Details</button>
         ${linkBtn(p.github, "GitHub")}
-        ${linkBtn(p.demoUrl, "Hosted demo")}
       </div>`;
     projectGrid.appendChild(card);
   });
@@ -763,6 +795,7 @@ MORE_PROJECTS.forEach((item, idx)=>{
     </div>
     <div class="more-item-right">
       ${item.tags.map(t=>`<span class="tag">${t}</span>`).join("")}
+      ${demoBtn(item.demoUrl)}
       <button class="btn btn-ghost" data-more="${idx}">Details &amp; code</button>
     </div>`;
   moreList.appendChild(row);
@@ -811,14 +844,25 @@ function wireCodeCopy(p){
 function tryItHtml(p){
   if(!p.tryIt) return "";
   const t = p.tryIt;
-  // If you later host a zip of the project, put the link in tryIt.download and
-  // this becomes a real download button.
   const dlBtn = t.download
-    ? `<a class="btn btn-primary demo-dl" href="${t.download}" download>Download project folder</a>`
+    ? `<a class="btn btn-ghost demo-dl" href="${t.download}" download>Download project folder</a>`
     : `<span class="demo-dl-note">Ask me for the project folder and I'll send it over.</span>`;
+
+  // If the project runs online, lead with that — it's the zero-setup path, and
+  // most people won't want to open a terminal.
+  const onlineBlock = (p.demoUrl && p.demoUrl !== "#") ? `
+      <div class="demo-online">
+        <p class="demo-step-label" style="margin-bottom:10px;">
+          <strong style="color:var(--text);">Easiest way</strong> — runs in your browser, nothing to install:
+        </p>
+        ${demoBtn(p.demoUrl)}
+      </div>
+      <p class="demo-or">or run it yourself</p>` : "";
+
   return `
     <div class="modal-section">
       <h4>Try it <span class="demo-badge local">Run locally</span></h4>
+      ${onlineBlock}
       <div class="demo-steps">
         <div class="demo-step">
           <span class="demo-step-num">1</span>
@@ -922,6 +966,10 @@ function openMoreModal(p){
             <h4>Run it</h4>
             <div class="demo-code">
               <span>${escapeHtml(p.run)}</span>
+            </div>
+            <div style="margin-top:12px;display:flex;gap:10px;flex-wrap:wrap;">
+              ${demoBtn(p.demoUrl)}
+              ${p.download ? `<a class="btn btn-ghost demo-dl" href="${p.download}" download>Download project folder</a>` : ""}
             </div>
           </div>
           ${codeSectionHtml(p)}
